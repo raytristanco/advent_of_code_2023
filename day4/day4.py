@@ -13,7 +13,8 @@ def extract_numbers(single_card: str) -> tuple[set, set]:
 
 with open('input.txt', 'r') as f:
     all_cards = f.read().splitlines()
-    
+
+"""
 point_total = 0
 for card in all_cards:
     win_set, self_set = extract_numbers(card)
@@ -21,3 +22,16 @@ for card in all_cards:
     point_total += 2**exponent if exponent >= 0 else 0
 
 print(point_total)
+"""
+
+total_card_dict = dict(zip([i for i in range(1, len(all_cards)+1)], 
+                           [1]*len(all_cards)))
+card_total = 0
+for card, amount in total_card_dict.items():
+    for i in range(amount):
+        win_set, self_set = extract_numbers(all_cards[card-1])
+        cards_won = len(win_set.intersection(self_set))
+        for j in range(cards_won):
+            total_card_dict[card+1+j] += 1
+
+print(sum(total_card_dict.values()))
