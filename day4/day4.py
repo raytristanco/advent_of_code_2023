@@ -28,9 +28,9 @@ total_card_dict = dict(zip([i for i in range(1, len(all_cards)+1)],
                            [1]*len(all_cards)))
 card_total = 0
 for card, amount in total_card_dict.items():
+    win_set, self_set = extract_numbers(all_cards[card-1])
+    cards_won = len(win_set.intersection(self_set))
     for i in range(amount):
-        win_set, self_set = extract_numbers(all_cards[card-1])
-        cards_won = len(win_set.intersection(self_set))
         for j in range(cards_won):
             total_card_dict[card+1+j] += 1
 
